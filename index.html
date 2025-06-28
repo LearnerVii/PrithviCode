@@ -64,7 +64,7 @@
 
       const { token, domain } = await getDirectLineTokenAndUrl();
       directLine = window.WebChat.createDirectLine({ token, domain });
-
+    console.log(window.WebChat);
       window.WebChat.renderWebChat(
         {
           directLine,

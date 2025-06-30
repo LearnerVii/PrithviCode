@@ -76,7 +76,8 @@
       );
 
       console.log('Trace - Bot rendered for', payload.incidentId);
-
+      console.log('Trace - User First Name:', payload.userName);
+      
       connectionSub = directLine.connectionStatus$.subscribe(status => {
         if (status === 2) {
           directLine.postActivity({

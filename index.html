@@ -119,7 +119,7 @@
     window.addEventListener("message", async (event) => {
       try {
         const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-        console.log("Trace - message received", data);
+        console.log("Trace - message received 122", data);
 
         if (!["openframe_communication", "openframe_hidden"].includes(data?.eventName)) return;
 

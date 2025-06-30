@@ -83,7 +83,7 @@
             type: 'event',
             name: 'startConversation',
             from: { id: 'user_1' },
-            value: { incidentId: payload.incidentId }
+            value: { incidentId: payload.incidentId, userName: payload.userName }
           }).subscribe(() => {
             console.log("Trace - startConversation event sent with:", payload);
           });
@@ -140,7 +140,8 @@
         const payload = {
           locale: 'en',
           localTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          incidentId
+          incidentId,
+userName: args.userName,
         };
 
         const isNewIncident = incidentId !== lastIncidentId;

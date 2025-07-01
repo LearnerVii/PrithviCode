@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>Copilot Chat</title>
   <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
   <style>
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -30,7 +28,6 @@
     }
   </style>
 </head>
-
 <body>
   <div id="container">
     <div id="webchat"></div>
@@ -48,7 +45,7 @@
 
       const tokenResponse = await fetch(tokenEndpoint);
       const { token } = await tokenResponse.json();
-      
+
       const settingsRes = await fetch(settingsEndpoint);
       const { channelUrlsById: { directline } } = await settingsRes.json();
 
@@ -64,7 +61,7 @@
 
       const { token, domain } = await getDirectLineTokenAndUrl();
       directLine = window.WebChat.createDirectLine({ token, domain });
-    console.log("WebChat Trace-"+ window.WebChat);
+
       window.WebChat.renderWebChat(
         {
           directLine,
@@ -72,19 +69,18 @@
           locale: 'en',
           styleOptions: { hideUploadButton: false }
         },
-        document.getElementById('webchat') 
+        document.getElementById('webchat')
       );
 
       console.log('Trace - Bot rendered for', payload.incidentId);
-    //  console.log('Trace - User First Name:', payload.userName);
-      
+
       connectionSub = directLine.connectionStatus$.subscribe(status => {
         if (status === 2) {
           directLine.postActivity({
             type: 'event',
             name: 'startConversation',
             from: { id: 'user_1' },
-            value: { incidentId: payload.incidentId, userName: payload.userName }
+            value: { incidentId: payload.incidentId }
           }).subscribe(() => {
             console.log("Trace - startConversation event sent with:", payload);
           });
@@ -101,6 +97,7 @@
 
       if (directLine && directLine.end) {
         try {
+          directLine.end();
         } catch (e) {
           console.warn("Error ending DirectLine", e);
         }
@@ -118,8 +115,6 @@
     // Listen for OpenFrame messages from parent
     window.addEventListener("message", async (event) => {
       try {
-        console.log("Trace - Message event received",event);
-         console.log("Trace - Message event.data received",event.data);
         const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
         console.log("Trace - message received", data);
 
@@ -130,7 +125,6 @@
         if (data.eventName === "openframe_communication") {
           const args = JSON.parse(data.args);
           incidentId = args.recordId || extractIncidentIdFromUrl(args.url);
-         // console.log("Trace - userName-", args.userName);
         } else if (data.eventName === "openframe_hidden") {
           incidentId = lastIncidentId;
           console.warn("Trace - Using last known incident ID");
@@ -168,5 +162,4 @@
     console.log("Trace - Waiting for ServiceNow context...");
   </script>
 </body>
-
 </html>

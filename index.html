@@ -118,6 +118,7 @@
     // Listen for OpenFrame messages from parent
     window.addEventListener("message", async (event) => {
       try {
+console.log(event);
         const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
         console.log("Trace - message received", data);
 

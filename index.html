@@ -119,6 +119,7 @@
     window.addEventListener("message", async (event) => {
       try {
         console.log("Trace - Message event received",event);
+         console.log("Trace - Message event.data received",event.data);
         const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
         console.log("Trace - message received", data);
 

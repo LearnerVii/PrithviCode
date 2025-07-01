@@ -76,7 +76,7 @@
       );
 
       console.log('Trace - Bot rendered for', payload.incidentId);
-      console.log('Trace - User First Name:', payload.userName);
+    //  console.log('Trace - User First Name:', payload.userName);
       
       connectionSub = directLine.connectionStatus$.subscribe(status => {
         if (status === 2) {
@@ -129,7 +129,7 @@
         if (data.eventName === "openframe_communication") {
           const args = JSON.parse(data.args);
           incidentId = args.recordId || extractIncidentIdFromUrl(args.url);
-          console.log("Trace - userName-", args.userName);
+         // console.log("Trace - userName-", args.userName);
         } else if (data.eventName === "openframe_hidden") {
           incidentId = lastIncidentId;
           console.warn("Trace - Using last known incident ID");

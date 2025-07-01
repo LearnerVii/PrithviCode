@@ -80,7 +80,7 @@
             type: 'event',
             name: 'startConversation',
             from: { id: 'user_1' },
-            value: { incidentId: payload.incidentId, Name: payLoad.Name }
+            value: { incidentId: payload.incidentId, Name: payload.Name }
           }).subscribe(() => {
             console.log("Trace - startConversation event sent with:", payload);
           });

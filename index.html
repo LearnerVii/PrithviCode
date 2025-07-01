@@ -122,7 +122,7 @@
         if (!["openframe_communication", "openframe_hidden"].includes(data?.eventName)) return;
 
         let incidentId = null;
-
+        let Name = null;
         if (data.eventName === "openframe_communication") {
           const args = JSON.parse(data.args);
           

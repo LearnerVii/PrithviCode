@@ -125,7 +125,11 @@
 
         if (data.eventName === "openframe_communication") {
           const args = JSON.parse(data.args);
+          
           incidentId = args.recordId || extractIncidentIdFromUrl(args.url);
+          Name = args.userName;
+          console.log("Trace - ", Name);
+          
         } else if (data.eventName === "openframe_hidden") {
           incidentId = lastIncidentId;
           console.warn("Trace - Using last known incident ID");

@@ -80,7 +80,7 @@
             type: 'event',
             name: 'startConversation',
             from: { id: 'user_1' },
-            value: { incidentId: payload.incidentId }
+            value: { incidentId: payload.incidentId, Name: payLoad.Name }
           }).subscribe(() => {
             console.log("Trace - startConversation event sent with:", payload);
           });
@@ -122,12 +122,12 @@
         if (!["openframe_communication", "openframe_hidden"].includes(data?.eventName)) return;
 
         let incidentId = null;
-       // let Name = null;
+        let Name = null;
         if (data.eventName === "openframe_communication") {
           const args = JSON.parse(data.args);
           console.log("Trace -args", args);
           incidentId = args.recordId || extractIncidentIdFromUrl(args.url);
-        //  Name = args.userName;
+          Name = args.userName;
          // console.log("Trace - ", Name);
           
         } else if (data.eventName === "openframe_hidden") {
@@ -143,7 +143,8 @@
         const payload = {
           locale: 'en',
           localTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          incidentId
+          incidentId,
+          Name
         };
 
         const isNewIncident = incidentId !== lastIncidentId;

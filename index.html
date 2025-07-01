@@ -118,7 +118,7 @@
     // Listen for OpenFrame messages from parent
     window.addEventListener("message", async (event) => {
       try {
-        console.log("Message event received",event);
+        console.log("Trace - Message event received",event);
         const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
         console.log("Trace - message received", data);
 
@@ -129,6 +129,7 @@
         if (data.eventName === "openframe_communication") {
           const args = JSON.parse(data.args);
           incidentId = args.recordId || extractIncidentIdFromUrl(args.url);
+          console.log("Trace - userName-", args.userName);
         } else if (data.eventName === "openframe_hidden") {
           incidentId = lastIncidentId;
           console.warn("Trace - Using last known incident ID");
@@ -138,7 +139,7 @@
           console.warn("Trace - No incident ID found");
           return;
         }
-console.log(args.userName);
+
         const payload = {
           locale: 'en',
           localTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,

@@ -55,6 +55,11 @@
       };
     }
 
+    //autehenticate user
+
+  
+
+
     // Start Web Chat with contextual payload
     async function startWebChat(payload) {
       await cleanUpChat();
@@ -115,6 +120,11 @@
     // Listen for OpenFrame messages from parent
     window.addEventListener("message", async (event) => {
       try {
+
+        const clientId = '482b496efde3455aa4e3a0d32d281aac'; // Your client ID
+  const redirectUri = encodeURIComponent(window.location.origin); // e.g., https://yourdomain.com
+  const loginUrl = `https://dev226517.service-now.com/oauth_auth.do?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
+  window.location.href = loginUrl;
         
         const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
         console.log("Trace - message received", data);
